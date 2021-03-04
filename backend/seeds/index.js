@@ -1,23 +1,37 @@
 // const mongoose = require('mongoose');
 const Campground = require('../db/models/Campground');
 const cities = require('./cities');
+const connectDB = require('../db/db');
+const mongoose = require('mongoose');
 const { descriptors, places } = require('./seedHelpers');
-// const connectDB = require('../db/db');
 
-// connectDB();
+connectDB();
 
-const sample = array => array[Math.floor(Math.random() * array.length)];
+const seedData = async () => {
+  await Campground.deleteMany();
 
-const seedDB = async () => {
-  // await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  const sample = array => array[Math.floor(Math.random() * array.length)];
+
+  const batch = cities.slice(0, 50).map((city, idx) => {
     const random1000 = Math.floor(Math.random() * 1000);
-    const camp = await Campground.create({
+
+    return {
       title: `${sample(descriptors)} ${sample(places)}`,
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
-    });
-    await camp.save();
+    };
+  });
+
+  console.log(batch);
+
+  try {
+    const camp = await Campground.collection.insertMany(batch);
+    console.log('Dummy Data Seeded Successfully: ', camp);
+  } catch (err) {
+    console.log('err:', err);
   }
 };
 
-seedDB();
+(async () => {
+  await seedData();
+  mongoose.disconnect();
+})();
