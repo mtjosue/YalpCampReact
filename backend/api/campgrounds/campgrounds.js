@@ -1,8 +1,15 @@
 const router = require('express').Router();
+const Campground = require('../../db/models/Campground');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    res.send('Yelp Camp Home Page');
+    const campgrounds = await Campground.find((err, docs) => {
+      if (err) {
+        console.error(err);
+      }
+
+      res.status(200).json({ success: true, count: docs.length, data: docs });
+    });
   } catch (err) {
     console.error(err);
   }

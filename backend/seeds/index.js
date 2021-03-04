@@ -21,7 +21,12 @@ const seedData = async () => {
     };
   });
 
-  console.log(batch);
+  // for (let i = 0; i < 50; i++) {
+  //   const random1000 = Math.floor(Math.random() * 1000);
+  //   const camp = await Campground.create({
+  //     title: `${sample(descriptors)} ${sample(places)}`,
+  //     location: `${cities[random1000].city}, ${cities[random1000].state}`,
+  //   });
 
   try {
     const camp = await Campground.collection.insertMany(batch);

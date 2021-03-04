@@ -8,8 +8,6 @@ const connectDB = require('./db/db');
 //Connecting to database
 connectDB();
 
-console.log(process.env.MONGO_CONNECTION_URI);
-
 //Body Parsers
 app.set(express.urlencoded({ extended: true }));
 app.use(express.json());
