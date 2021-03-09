@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Campground = ({ id, title }) => {
   return (
@@ -6,6 +7,11 @@ const Campground = ({ id, title }) => {
       <a href={`/${id}`}>{title}</a>
     </li>
   );
+};
+
+Campground.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
 };
 
 export default Campground;
