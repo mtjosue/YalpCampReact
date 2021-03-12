@@ -2,13 +2,11 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const PORT = 3000;
+const PORT = 4000;
 const connectDB = require('./db/db');
 
 //Connecting to database
 connectDB();
-
-console.log(process.env.MONGO_CONNECTION_URI);
 
 //Body Parsers
 app.set(express.urlencoded({ extended: true }));
